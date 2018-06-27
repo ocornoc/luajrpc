@@ -1,1 +1,1 @@
-This is currently undocumented code used for some internal stuff. I'll hopefully get around to formatting, but, for now, sorry. You use it by wrapping a socket with `jrpc.wrap_socket(sock)`.
+This is currently undocumented code used for some internal stuff. I'll hopefully get around to formatting, but, for now, sorry. It just provides a library for validating JSON-RPC objects that have been turned into Lua tables.
