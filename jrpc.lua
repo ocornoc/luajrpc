@@ -84,9 +84,35 @@ jrpc_obj.validate_error = function(obj)
 	return true
 end
 
+-- Validates a batch request object.
+jrpc_obj.validate_batch_request = function(obj)
+	for k,v in ipairs(obj) do
+		if not jrpc_obj.validate_request(v) then
+			return nil, "invalid request object"
+		end
+	end
+	
+	return true
+end
+
+-- Validates a batch response object.
+jrpc_obj.validate_batch_response = function(obj)
+	for k,v in ipairs(obj) do
+		if not jrpc_obj.validate_response(v) then
+			return nil, "invalid response object"
+		end
+	end
+	
+	return true
+end
+
 -- Determines the type of object.
 jrpc_obj.determine_type = function(obj)
-	if jrpc_obj.validate_request(obj) then
+	if jrpc_obj.validate_batch_request(obj) then
+		return "batch request"
+	elseif jrpc_obj.validate_batch_response(obj) then
+		return "batch response"
+	elseif jrpc_obj.validate_strict_request(obj) then
 		return "request"
 	elseif jrpc_obj.validate_notification(obj) then
 		return "notification"
